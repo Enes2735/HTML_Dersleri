@@ -2,93 +2,193 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Proje</title>
+    <title>table</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <p class="text-center"><strong>RESİMLER</strong></p>
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="card" style="width:16rem;">
-                <img src="images/download.jpg" class="card-img-top" alt="manzara" />
-                <div class="card-body">
-                    <h6 class="card-title ">1.Resim</h6>
-                    <p class="card-text">Deniz Manzarası</p>
-                    <a href="https://www.youtube.com/watch?v=Wz68Hl2ouN0" target="_blank" class="btn btn-primary "> Video için linke tıklayınız</a>
-                </div>
+    <div class="container mt-3">
+        <h2>renklendirme sakjdklasjdklsahdjksadhukzxycuhzjxbcjk</h2>
 
-            </div>
+        <table class="table table-primary table-borderless">
+            <thead>
+                <tr>
+                    <th>ad soyad mail</th>
+                    <th>ad soyad mail</th>
+                    <th>ad soyad mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>ad soyad mail</th>
+                    <th>ad soyad mail</th>
+                    <th>ad soyad mail</th>
+                </tr>
+                <tr>
+                    <th>ad soyad mail</th>
+                    <th>ad soyad mail</th>
+                    <th>ad soyad mail</th>
+                </tr>
 
-            <div class="card" style="width:16rem;">
-                <img src="images/download.jpg" class="card-img-top" alt="manzara" />
-                <div class="card-body">
-                    <h6 class="card-title ">2.Resim</h6>
-                    <p class="card-text">Deniz Manzarası</p>
-                    <a href="https://www.youtube.com/watch?v=Wz68Hl2ouN0" target="_blank" class="btn btn-primary "> Video için linke tıklayınız</a>
-                </div>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-3">
+        <h2>renklendirme satır sutun</h2>
 
-            </div>
+        <table class="table table-danger">
+            <thead>
+                <tr>
+                    <th>ad</th>
+                    <th>soyad</th>
+                    <th>mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table table-info">
+                    <th>ad</th>
+                    <th>soyad</th>
+                    <th>mail</th>
+                </tr>
+                <tr class="table table-secondary">
+                    <th>ad</th>
+                    <th>soyad</th>
+                    <th>mail</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle caption top">
+            <caption>Tablo Bilgisi Ekler</caption>
+            <thead class="table table-dark">
+                <tr>
+                    <td>yazı</td>
+                    <td>yazı</td>
+                    <td>yazıı</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>selam merhaba naber napıyorsun;</td>
+                    <td>selam merhaba naber napıyorsun;</td>
+                    <td>
+                        selam merhaba naber napıyorsun
+                    </td>
+                </tr>
+                <tr class="align-bottom">
+                    <td>selam merhaba naber napıyorsun ;</td>
+                    <td>selam merhaba naber napıyorsun ;</td>
+                    <td>selam merhaba naber napıyorsun .</td>
+                </tr>
+                <tr>
+                    <td>selam merhaba naber napıyorsun.</td>
+                    <td>selam merhaba naber napıyorsun;</td>
+                    <td class="align-top">selam merhaba naber napıyorsun;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table class="table align-middle caption top">
+            <caption>Tablo Bilgisi Ekler</caption>
+            <thead class="table table-dark">
+                <tr class="table table-warning">
+                    <td>yazı</td>
+                    <td>yazı</td>
+                    <td>yazıı</td>
+                </tr>
+            </thead>
 
-            <div class="card" style="width:16rem;">
-                <img src="images/download.jpg" class="card-img-top" alt="manzara" />
-                <div class="card-body">
-                    <h6 class="card-title ">3.Resim</h6>
-                    <p class="card-text">Deniz Manzarası</p>
-                    <a href="https://www.youtube.com/watch?v=Wz68Hl2ouN0" target="_blank" class="btn btn-primary "> Video için linke tıklayınız</a>
-                </div>
-
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    Quote
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p>A well-known quote, contained in a blockquote element.</p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                    </blockquote>
-                </div>
-            </div>
-
-
-
-
-        </div>
-
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                Featured
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-            </ul>
-            <div class="card-footer">
-                Featured
-            </div>
-        </div>
-        <br />
-
-        <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Light card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-
-        <div class="card mb-3">
-            <img src="images/download.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-        
+        </table>
 
     </div>
+    <div class="container">
+        <ol class="list-group list-group-numbered list-group-flush">
+
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Mesaj Kutusu</div>
+                    Gelen Mesaj
+                </div>
+                <span class="badge bg-primary rounded-pill">0</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Mesaj Kutusu</div>
+                    Giden Kutusu
+                </div>
+                <span class="badge bg-primary badge-pill">60</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Mesaj Kutusu</div>
+                    Gönderilmişler
+                </div>
+                <span class="badge bg-primary rounded-pill">98</span>
+            </li>
+        </ol>
+    </div>
+    <form action="/kart2.html">
+        <div class="form-group mb-3">
+            <label class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="form-group mb-3">
+            -
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="form-group mb-3">
+            -
+            <input type="text" class="form-control form-control-lg" placeholder="Large input">
+        </div>
+        <div class="form-group mb-3">
+            -
+            <input type="text" class="form-control form-control-lg" placeholder="Large input" readonly>
+        </div>
+        <div class="form-group mb-3">
+
+            <label class="form-label">Disabled select menu</label>
+            <select id="disabledSelect" class="form-select" disabled>
+                <option>Disabled select</option>
+            </select>
+        </div>
+        <div class="form-group mb-3">
+
+            <label class="form-label">Disabled select menu</label>
+            <select id="disabledSelect" class="form-select">
+                <option>Kadın</option>
+                <option>Erkek</option>
+            </select>
+        </div>
+        <div class="mb-3">
+
+            <label class="form-label">Comments:</label>
+            <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+        </div>
+        <div class="form-group mb-3 form-check-inline">
+            
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label">Check me out</label>
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label">Check me out</label>
+        </div><br />
+        <div class="form-group form-check-inline">
+           
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="secim">Mezun
+            </label>
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="secim">Mezun
+            </label>
+        </div>
+        <div class="form-group mb-3">
+            
+            <input type="color" class="form-control form-control-color" value="#CCCCCC">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
 </body>
 </html>
