@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Ad:</p>
+    <input type="text" id="adInput" placeholder="Ad Giriniz.">
+    <p>Aramak İstediğiniz Ad:</p>
+    <input type="text" id="aramaInput" placeholder="Ad Giriniz."><br><br>
+
+    <button type="button" onclick="ekleAd()">Ekle</button>
+    <button type="button" onclick="gosterAd()">Eklenen Ad Göster</button>
+    <button type="button" onclick="araAd()">Ara</button>
+
+    <div id="eklenenAdlarDiv"></div>
+
+    <script>
+        var eklenenAdlar = [];
+
+        function ekleAd() {
+            var adInput = document.getElementById('adInput');
+            var ad = adInput.value.trim();
+
+            if (ad !== "") 
+            {
+                if (eklenenAdlar.includes(ad)) 
+                {
+                    document.getElementById('eklenenAdlarDiv').innerText = "Bu ad zaten ekli!";
+                } 
+                else
+                {
+                    eklenenAdlar.push(ad);
+                    adInput.value = "";
+                    document.getElementById('eklenenAdlarDiv').innerText = "Ad başarılı bir şekilde eklendi!";
+                }
+            } 
+            else 
+            {
+                document.getElementById('eklenenAdlarDiv').innerText = "Lütfen bir ad girin.";
+            }
+        }
+
+        function gosterAd() 
+        {
+            var eklenenAdlarString = "Eklenen Adlar: " + eklenenAdlar.join(', ');
+            document.getElementById('eklenenAdlarDiv').innerText = eklenenAdlarString;
+        }
+
+        function araAd() {
+            var aramaInput = document.getElementById('aramaInput');
+            var arananAd = aramaInput.value.trim();
+
+            if (arananAd !== "") 
+            {
+                if (eklenenAdlar.includes(arananAd)) {
+                    document.getElementById('eklenenAdlarDiv').innerText = arananAd + " Adı bulundu!";
+                } else {
+                    document.getElementById('eklenenAdlarDiv').innerText = arananAd + " Adı bulunamadı.";
+                }
+            } 
+            else 
+            {
+                document.getElementById('eklenenAdlarDiv').innerText = "Lütfen aramak istediğiniz adı girin.";
+            }
+        }
+    </script>
+</body>
+</html>

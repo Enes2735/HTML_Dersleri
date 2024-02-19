@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İki Oyunculu Yılan Oyunu</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .game-container {
+            width: 45vw;
+            height: 100vh;
+            background-color: black;
+            position: relative;
+        }
+
+        .snake {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+        }
+
+        .snake-segment {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+        }
+
+        .food {
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+            position: absolute;
+        }
+
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container" id="game-container-1">
+        <div class="score" id="score-1">Oyuncu 1: 0</div>
+        <div class="snake" id="snake-1"></div>
+        <div class="food" id="food-1"></div>
+    </div>
+
+    <div class="game-container" id="game-container-2">
+        <div class="score" id="score-2">Oyuncu 2: 0</div>
+        <div class="snake" id="snake-2"></div>
+        <div class="food" id="food-2"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Oyuncu 1
+            const gameContainer1 = document.getElementById('game-container-1');
+            const snake1 = document.getElementById('snake-1');
+            const food1 = document.getElementById('food-1');
+            const scoreElement1 = document.getElementById('score-1');
+            let snakeSegments1 = [{ x: 0, y: 0 }];
+            let foodX1 = 0;
+            let foodY1 = 0;
+            let snakeDirection1 = 'right';
+            let score1 = 0;
+
+            // Oyuncu 2
+            const gameContainer2 = document.getElementById('game-container-2');
+            const snake2 = document.getElementById('snake-2');
+            const food2 = document.getElementById('food-2');
+            const scoreElement2 = document.getElementById('score-2');
+            let snakeSegments2 = [{ x: 0, y: 0 }];
+            let foodX2 = 0;
+            let foodY2 = 0;
+            let snakeDirection2 = 'right';
+            let score2 = 0;
+
+            // Ortak değişkenler
+            const gridSize = 20;
+
+            function updateGame() {
+                // Oyuncu 1
+                moveSnake(snakeSegments1, snakeDirection1, foodX1, foodY1, score1, updateScore1, gameContainer1, snake1, food1);
+                // Oyuncu 2
+                moveSnake(snakeSegments2, snakeDirection2, foodX2, foodY2, score2, updateScore2, gameContainer2, snake2, food2);
+            }
+
+            function moveSnake(snakeSegments, snakeDirection, foodX, foodY, score, updateScore, gameContainer, snake, food) {
+                let newHead = { x: snakeSegments[0].x, y: snakeSegments[0].y };
+
+                switch (snakeDirection) {
+                    case 'up':
+                        newHead.y -= gridSize;
+                        break;
+                    case 'down':
+                        newHead.y += gridSize;
+                        break;
+                    case 'left':
+                        newHead.x -= gridSize;
+                        break;
+                    case 'right':
+                        newHead.x += gridSize;
+                        break;
+                }
+
+                snakeSegments.unshift(newHead);
+
+                if (newHead.x === foodX && newHead.y === foodY) {
+                    placeFood(food, gameContainer, foodX, foodY);
+                    score++;
+                    updateScore(scoreElement, score);
+                } else {
+                    snakeSegments.pop();
+                }
+
+                updateSnakeUI(snakeSegments, snake, gameContainer);
+                checkCollision(snakeSegments, gameContainer, resetGame);
+                checkFoodCollision(newHead, foodX, foodY, placeFood, food, gameContainer);
+            }
+
+            function updateSnakeUI(snakeSegments, snake, gameContainer) {
+                const snakeSegmentsElements = document.querySelectorAll('.snake-segment');
+                snakeSegmentsElements.forEach(segment => segment.remove());
+
+                snake.style.left = snakeSegments[0].x + 'px';
+                snake.style.top = snakeSegments[0].y + 'px';
+
+                for (let i = 1; i < snakeSegments.length; i++) {
+                    const segment = document.createElement('div');
+                    segment.className = 'snake-segment';
+                    segment.style.width = gridSize + 'px';
+                    segment.style.height = gridSize + 'px';
+                    segment.style.left = snakeSegments[i].x + 'px';
+                    segment.style.top = snakeSegments[i].y + 'px';
+                    gameContainer.appendChild(segment);
+                }
+            }
+
+            function checkCollision(snakeSegments, gameContainer, resetGame) {
+                const head = snakeSegments[0];
+
+                if (head.x < 0 || head.x >= gameContainer.clientWidth || head.y < 0 || head.y >= gameContainer.clientHeight) {
+                    alert('Oyun Bitti! Oyuncu Skoru: ' + score);
+                    resetGame(snakeSegments, snakeDirection, snake, score, updateScore, gameContainer, food, 'Oyuncu 1 - Oyun Başladı!');
+                }
+
+                for (let i = 1; i < snakeSegments.length; i++) {
+                    if (head.x === snakeSegments[i].x && head.y === snakeSegments[i].y) {
+                        alert('Oyun Bitti! Oyuncu Skoru: ' + score);
+                        resetGame(snakeSegments, snakeDirection, snake, score, updateScore, gameContainer, food, 'Oyuncu 1 - Oyun Başladı!');
+                    }
+                }
+            }
+
+            function checkFoodCollision(head, foodX, foodY, placeFood, food, gameContainer) {
+                if (head.x === foodX && head.y === foodY) {
+                    placeFood(food, gameContainer, foodX, foodY);
+                }
+            }
+
+            function placeFood(food, gameContainer, foodX, foodY) {
+                foodX = Math.floor(Math.random() * (gameContainer.clientWidth / gridSize)) * gridSize;
+                foodY = Math.floor(Math.random() * (gameContainer.clientHeight / gridSize)) * gridSize;
+
+                food.style.left = foodX + 'px';
+                food.style.top = foodY + 'px';
+            }
+
+            function updateScore(scoreElement, score) {
+                scoreElement.textContent = 'Oyuncu Skoru: ' + score;
+            }
+
+            function resetGame(snakeSegments, snakeDirection, snake, score, updateScore, gameContainer, food, alertMessage) {
+                snakeSegments = [{ x: 0, y: 0 }];
+                snakeDirection = 'right';
+                snake.style.left = '0px';
+                snake.style.top = '0px';
+                score = 0;
+                updateScore(scoreElement, score);
+
+                const snakeSegmentsElements = document.querySelectorAll('.snake-segment');
+                snakeSegmentsElements.forEach(segment => segment.remove());
+                food.style.left = '0px';
+                food.style.top = '0px';
+
+                alert(alertMessage);
+            }
+
+            document.addEventListener('keydown', function (event) {
+                // Oyuncu 1 kontrolleri
+                switch (event.key) {
+                    case 'ArrowUp':
+                        if (snakeDirection1 !== 'down') {
+                            snakeDirection1 = 'up';
+                        }
+                        break;
+                    case 'ArrowDown':
+                        if (snakeDirection1 !== 'up') {
+                            snakeDirection1 = 'down';
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        if (snakeDirection1 !== 'right') {
+                            snakeDirection1 = 'left';
+                        }
+                        break;
+                    case 'ArrowRight':
+                        if (snakeDirection1 !== 'left') {
+                            snakeDirection1 = 'right';
+                        }
+                        break;
+                }
+
+                // Oyuncu 2 kontrolleri
+                switch (event.key) {
+                    case 'W':
+                        if (snakeDirection2 !== 'down') {
+                            snakeDirection2 = 'up';
+                        }
+                        break;
+                    case 'S':
+                        if (snakeDirection2 !== 'up') {
+                            snakeDirection2 = 'down';
+                        }
+                        break;
+                    case 'A':
+                        if (snakeDirection2 !== 'right') {
+                            snakeDirection2 = 'left';
+                        }
+                        break;
+                    case 'D':
+                        if (snakeDirection2 !== 'left') {
+                            snakeDirection2 = 'right';
+                        }
+                        break;
+                }
+            });
+
+            setInterval(updateGame, 100);
+
+            placeFood(food1, gameContainer1, foodX1, foodY1);
+            resetGame(snakeSegments1, snakeDirection1, snake1, score1, updateScore1, gameContainer1, food1, 'Oyuncu 1 - Oyun Başladı!');
+
+            placeFood(food2, gameContainer2, foodX2, foodY2);
+            resetGame(snakeSegments2, snakeDirection2, snake2, score2, updateScore2, gameContainer2, food2, 'Oyuncu 2 - Oyun Başladı!');
+        });
+    </script>
+</body>
+</html>

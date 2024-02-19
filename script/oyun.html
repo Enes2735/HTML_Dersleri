@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yılan Oyunu</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            position: relative;
+        }
+
+        #snake {
+            width: 20px;
+            height: 20px;
+            background-color: blue;
+            position: absolute;
+        }
+
+        .snake-segment {
+            width: 20px;
+            height: 20px;
+            background-color: blue;
+            position: absolute;
+        }
+
+        #food {
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+            position: absolute;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: white;
+
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="score">Puan: 0</div>
+        <div id="snake"></div>
+        <div id="food"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const gameContainer = document.getElementById('game-container');
+    const snake = document.getElementById('snake');
+    const food = document.getElementById('food');
+    const scoreElement = document.getElementById('score');
+    let snakeSegments = [{ x: 0, y: 0 }];
+    let foodX = 0;
+    let foodY = 0;
+    let snakeDirection = 'right';
+    let score = 0;
+    const gridSize = 20;
+
+    function updateGame() {
+        moveSnake();
+        checkCollision();
+        checkFoodCollision();
+    }
+
+    function moveSnake() {
+        let newHead = { x: snakeSegments[0].x, y: snakeSegments[0].y };
+
+        switch (snakeDirection) {
+            case 'up':
+                newHead.y -= gridSize;
+                break;
+            case 'down':
+                newHead.y += gridSize;
+                break;
+            case 'left':
+                newHead.x -= gridSize;
+                break;
+            case 'right':
+                newHead.x += gridSize;
+                break;
+        }
+
+        snakeSegments.unshift(newHead);
+
+        if (newHead.x === foodX && newHead.y === foodY) {
+            // Yem yendi, yeni yem yerleştir
+            placeFood();
+            // Skoru artır
+            score++;
+            updateScore();
+        } else {
+            // Yılanın son halkasını kuyruktan kaldır
+            snakeSegments.pop();
+        }
+
+        updateSnakeUI();
+    }
+
+    function updateSnakeUI() {
+        // Tüm eski segmentleri temizle
+        const snakeSegmentsElements = document.querySelectorAll('.snake-segment');
+        snakeSegmentsElements.forEach(segment => segment.remove());
+
+        // Yılanın başını güncelle
+        snake.style.left = snakeSegments[0].x + 'px';
+        snake.style.top = snakeSegments[0].y + 'px';
+
+        // Yılanın diğer segmentlerini güncelle
+        for (let i = 1; i < snakeSegments.length; i++) {
+            const segment = document.createElement('div');
+            segment.className = 'snake-segment';
+            segment.style.width = gridSize + 'px';
+            segment.style.height = gridSize + 'px';
+            segment.style.left = snakeSegments[i].x + 'px';
+            segment.style.top = snakeSegments[i].y + 'px';
+            gameContainer.appendChild(segment);
+        }
+    }
+
+    function checkCollision() {
+        const head = snakeSegments[0];
+
+        if (head.x < 0 || head.x >= gameContainer.clientWidth || head.y < 0 || head.y >= gameContainer.clientHeight) {
+            alert('Oyun bitti! Skor: ' + score);
+            resetGame();
+        }
+
+        // Yılanın kendisine çarpmasını kontrol et
+        for (let i = 1; i < snakeSegments.length; i++) {
+            if (head.x === snakeSegments[i].x && head.y === snakeSegments[i].y) {
+                alert('Oyun bitti! Skor: ' + score);
+                resetGame();
+            }
+        }
+    }
+
+    function checkFoodCollision() {
+        const head = snakeSegments[0];
+
+        if (head.x === foodX && head.y === foodY) {
+            // Yem yendi, yılanın uzunluğunu artır
+            placeFood();
+        }
+    }
+
+    function placeFood() {
+        foodX = Math.floor(Math.random() * (gameContainer.clientWidth / gridSize)) * gridSize;
+        foodY = Math.floor(Math.random() * (gameContainer.clientHeight / gridSize)) * gridSize;
+
+        food.style.left = foodX + 'px';
+        food.style.top = foodY + 'px';
+    }
+
+    function updateScore() {
+        scoreElement.textContent = 'Skor: ' + score;
+    }
+
+    function resetGame() {
+        snakeSegments = [{ x: 0, y: 0 }];
+        snakeDirection = 'right';
+        snake.style.left = '0px';
+        snake.style.top = '0px';
+        score = 0;
+        updateScore();
+
+        // Yılanın segmentlerini ve yemi temizle
+        const snakeSegmentsElements = document.querySelectorAll('.snake-segment');
+        snakeSegmentsElements.forEach(segment => segment.remove());
+        food.style.left = '0px';
+        food.style.top = '0px';
+
+        alert('Oyun başladı!');
+    }
+
+    document.addEventListener('keydown', function (event) {
+        switch (event.key) {
+            case 'w':
+                if (snakeDirection !== 'down') {
+                    snakeDirection = 'up';
+                }
+                break;
+            case 's':
+                if (snakeDirection !== 'up') {
+                    snakeDirection = 'down';
+                }
+                break;
+            case 'a':
+                if (snakeDirection !== 'right') {
+                    snakeDirection = 'left';
+                }
+                break;
+            case 'd':
+                if (snakeDirection !== 'left') {
+                    snakeDirection = 'right';
+                }
+                break;
+        }
+    });
+
+    setInterval(updateGame, 100);
+    placeFood();
+});
+    </script>
+</body>
+</html>

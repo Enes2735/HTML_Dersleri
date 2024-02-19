@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: gray;
+            color: white;
+            font-weight: bold;
+        }
+
+        .cerceve {
+            background-color: orange;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <p>Kenar Yuvarlama</p>
+        <div id="cerceve1" class="cerceve"></div>
+        <input type="radio" name="secim1" onClick="kenarYuvarla('cerceve1', '0px')" value="0">
+        <label for="male">0 piksel</label><br>
+        <input type="radio" name="secim1" onClick="kenarYuvarla('cerceve1', '10px')" value="10">
+        <label for="male">10 piksel</label><br>
+        <input type="radio" name="secim1" onClick="kenarYuvarla('cerceve1', '25px')" value="25">
+        <label for="male">25 piksel</label><br>
+        <input type="radio" name="secim1" onClick="kenarYuvarla('cerceve1', '50px')" value="50">
+        <label for="male">50 piksel</label><br>
+    </form>
+
+    <form>
+        <p>Rastgele Kenar Yuvarlama</p>
+        <div id="cerceve2" class="cerceve"></div>
+        <button type="button" onclick="rastgeleKenarYuvarla('cerceve2')">Rastgele Yap</button>
+    </form>
+
+    <script>
+        function kenarYuvarla(cerceveId, derece) {
+            document.getElementById(cerceveId).style.borderRadius = derece;
+        }
+
+        function rastgeleKenarYuvarla(cerceveId) {
+            var randomRadius = Math.floor(Math.random() * 50) + 1; 
+            document.getElementById(cerceveId).style.borderRadius = randomRadius + 'px';
+        }
+    </script>
+</body>
+</html>

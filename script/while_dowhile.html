@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=9, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="reklamKaldir()">
+    <div id="ekran">
+    <img src="resimler/monalisa.jpg">
+    </div>
+   <!-- Diğer HTML kodları -->
+   <script>
+    function reklamKaldir(){
+ 
+ var sayac=10;
+var a=setInterval(function (){
+ sayac=sayac-1;
+ document.getElementById("ekran").innerHTML=sayac;
+ if (sayac==0){
+ clearInterval(a);
+ }
+ },3000);
+}
+   </script>
+   </body>
+</html>
